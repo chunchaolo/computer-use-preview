@@ -29,22 +29,23 @@ def main() -> int:
         default="""Subject: QA Test
 Plan: Comprehensive validation of interactive webpage elements
 
-Objective: Verify that every interactive control renders correctly, responds to all supported input methods (mouse, keyboard, touch emulation), and reflects the appropriate visual feedback across major browsers and responsive breakpoints.
+Objective: Verify that every interactive control renders correctly, responds to all supported input methods (mouse and touch emulation), and reflects the appropriate visual feedback across major browsers and responsive breakpoints.
 
 Checklist:
-1. Catalog all interactive elements (navigation menus, buttons, links, forms, inputs, sliders, toggles, accordions, carousels, media controls, dialogs/modals, tooltips, drag-and-drop regions, and custom widgets).
-2. For each element:
-   - Confirm default states, hover/focus/active/disabled styles, loading indicators, and error/success messaging.
-   - Validate keyboard navigation (tab/shift-tab order, space/enter activation, arrow key interactions) and accessible name/role semantics.
-   - Exercise edge cases: empty submissions, invalid inputs, repeated clicks, rapid interactions, and concurrent actions.
-   - Verify state persistence, undo/cancel options, and interaction with dependent elements.
-3. Assess form behaviors: client/server validation, autofill, copy/paste, masking, character limits, file uploads, and multi-step flows.
-4. Evaluate dynamic content updates (live regions, auto-refresh, animations) for consistency and accessibility.
-5. Test responsiveness at key breakpoints (mobile, tablet, desktop) and ensure interactions remain usable without layout shifts or overlaps.
-6. Capture cross-browser parity notes for Chrome, Firefox, Safari, and Edge; flag vendor-specific quirks.
-7. Document screenshots or recordings of failures, console/network errors, and reproduction steps for any defects.
+	1.	Catalog all interactive elements (navigation menus, buttons, links, forms, inputs, sliders, toggles, accordions, carousels, media controls, dialogs/modals, tooltips, drag-and-drop regions, and custom widgets).
+	2.	For each element:
+	•	Confirm default states, hover/focus/active/disabled styles, loading indicators, and error/success messaging.
+	•	Validate accessible name/role semantics (labels, ARIA where applicable) and that assistive cues are present where needed.
+	•	Exercise edge cases: empty submissions, invalid inputs, repeated clicks, rapid interactions, and concurrent actions.
+	•	Verify state persistence, undo/cancel options, and interaction with dependent elements.
+	3.	Assess form behaviors: client/server validation, autofill, copy/paste, masking, character limits, file uploads, and multi-step flows.
+	4.	Evaluate dynamic content updates (live regions, auto-refresh, animations) for consistency and accessibility.
+	5.	Test responsiveness at key breakpoints (mobile, tablet, desktop) and ensure interactions remain usable without layout shifts or overlaps.
+	6.	Capture cross-browser parity notes for Chrome, Firefox, Safari, and Edge; flag vendor-specific quirks.
+	7.	Document screenshots or recordings of failures, console/network errors, and reproduction steps for any defects.
 
-Deliverable: Provide a prioritized defect list with reproduction steps, environment details, impacted elements, and recommended fixes.""",
+Deliverable: Provide a prioritized defect list with reproduction steps, environment details, impacted elements, and recommended fixes.
+If all elements work properly, output “Result: PASS” in the end. Otherwise, output “Result: FAIL” in the end.""",
         help="The query for the browser agent to execute.",
     )
 
@@ -75,7 +76,7 @@ Deliverable: Provide a prioritized defect list with reproduction steps, environm
     parser.add_argument(
         "--output_file",
         type=str,
-        default=None,
+        default="result.txt",
         help="Optional path to write the agent's final response to a text file.",
     )
     args = parser.parse_args()

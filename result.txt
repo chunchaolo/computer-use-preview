@@ -1,0 +1,16 @@
+I have evaluated the result. Pressing 'left' when "Block" was focused did NOT move the block. The position is still 9.40m, and visually it hasn't moved. So, focusing "Block" in the list doesn't allow arrow keys to move it. The instruction "Use the Objects list for keyboard control" is either misleading or I'm missing the correct keys.
+
+However, the block *is* draggable, which is one form of interaction.
+
+Summary of findings:
+-   All sliders work with mouse drag.
+-   All sliders work with keyboard arrows *after* being tabbed to, BUT they do not show a visible focus indicator, making it hard to know which slider is active via keyboard. (FAIL #1: Accessibility - No visible focus on sliders).
+-   Run/Pause/Reset buttons work with mouse click and keyboard enter/space (assuming space works like enter), and show visible focus.
+-   Radio buttons work with mouse click and keyboard arrows (within the group, once focused) and show visible focus.
+-   The block is draggable with the mouse.
+-   The "Objects" list item "Block" is focusable, but arrow keys don't move the block, contrary to what "Use the Objects list for keyboard control" might imply. (FAIL #2: Usability/Accessibility - Unclear keyboard control for the block via Objects list).
+-   "Concept" text at the top is not interactive.
+
+Given the lack of visible focus on sliders and unclear keyboard control for the block via the Objects list, I cannot give a full PASS.
+
+Result: FAIL
