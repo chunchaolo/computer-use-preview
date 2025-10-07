@@ -27,9 +27,24 @@ def main() -> int:
         "--query",
         type=str,
         default="""Subject: QA Test
-Plan: Interactive Elements on webpages
+Plan: Comprehensive validation of interactive webpage elements
 
-Objective: Verify that all interactive elements on the page function as expected and that all visual feedback is rendered correctly across major browsers.""",
+Objective: Verify that every interactive control renders correctly, responds to all supported input methods (mouse, keyboard, touch emulation), and reflects the appropriate visual feedback across major browsers and responsive breakpoints.
+
+Checklist:
+1. Catalog all interactive elements (navigation menus, buttons, links, forms, inputs, sliders, toggles, accordions, carousels, media controls, dialogs/modals, tooltips, drag-and-drop regions, and custom widgets).
+2. For each element:
+   - Confirm default states, hover/focus/active/disabled styles, loading indicators, and error/success messaging.
+   - Validate keyboard navigation (tab/shift-tab order, space/enter activation, arrow key interactions) and accessible name/role semantics.
+   - Exercise edge cases: empty submissions, invalid inputs, repeated clicks, rapid interactions, and concurrent actions.
+   - Verify state persistence, undo/cancel options, and interaction with dependent elements.
+3. Assess form behaviors: client/server validation, autofill, copy/paste, masking, character limits, file uploads, and multi-step flows.
+4. Evaluate dynamic content updates (live regions, auto-refresh, animations) for consistency and accessibility.
+5. Test responsiveness at key breakpoints (mobile, tablet, desktop) and ensure interactions remain usable without layout shifts or overlaps.
+6. Capture cross-browser parity notes for Chrome, Firefox, Safari, and Edge; flag vendor-specific quirks.
+7. Document screenshots or recordings of failures, console/network errors, and reproduction steps for any defects.
+
+Deliverable: Provide a prioritized defect list with reproduction steps, environment details, impacted elements, and recommended fixes.""",
         help="The query for the browser agent to execute.",
     )
 
