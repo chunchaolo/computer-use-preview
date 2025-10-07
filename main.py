@@ -57,6 +57,12 @@ Objective: Verify that all interactive elements on the page function as expected
         default='gemini-2.5-computer-use-preview-10-2025',
         help="Set which main model to use.",
     )
+    parser.add_argument(
+        "--output_file",
+        type=str,
+        default=None,
+        help="Optional path to write the agent's final response to a text file.",
+    )
     args = parser.parse_args()
 
     if args.env == "playwright":
@@ -80,6 +86,14 @@ Objective: Verify that all interactive elements on the page function as expected
             model_name=args.model,
         )
         agent.agent_loop()
+
+        if args.output_file and agent.final_reasoning:
+            output_path = os.path.expanduser(args.output_file)
+            output_dir = os.path.dirname(output_path)
+            if output_dir:
+                os.makedirs(output_dir, exist_ok=True)
+            with open(output_path, "w", encoding="utf-8") as output_file:
+                output_file.write(agent.final_reasoning)
     return 0
 
 

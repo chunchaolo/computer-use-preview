@@ -13,7 +13,7 @@
 # limitations under the License.
 
 import unittest
-from unittest.mock import patch, MagicMock
+from unittest.mock import MagicMock, mock_open, patch
 import main
 
 class TestMain(unittest.TestCase):
@@ -30,6 +30,7 @@ class TestMain(unittest.TestCase):
         mock_args.model = 'test_model'
         mock_args.api_server = None
         mock_args.api_server_key = None
+        mock_args.output_file = None
         mock_arg_parser.return_value.parse_args.return_value = mock_args
 
         main.main()
@@ -54,6 +55,7 @@ class TestMain(unittest.TestCase):
         mock_args.api_server_key = None
         mock_args.initial_url = 'test_url'
         mock_args.highlight_mouse = False
+        mock_args.output_file = None
         mock_arg_parser.return_value.parse_args.return_value = mock_args
 
         main.main()
@@ -64,6 +66,45 @@ class TestMain(unittest.TestCase):
         )
         mock_browser_agent.assert_called_once()
         mock_browser_agent.return_value.agent_loop.assert_called_once()
+
+    @patch('main.argparse.ArgumentParser')
+    @patch('main.os.makedirs')
+    @patch('builtins.open', new_callable=mock_open)
+    @patch('main.PlaywrightComputer')
+    @patch('main.BrowserAgent')
+    def test_main_writes_output_file(
+        self,
+        mock_browser_agent,
+        mock_playwright_computer,
+        mock_open_file,
+        mock_makedirs,
+        mock_arg_parser,
+    ):
+        mock_args = MagicMock()
+        mock_args.env = 'playwright'
+        mock_args.initial_url = 'test_url'
+        mock_args.highlight_mouse = False
+        mock_args.query = 'test_query'
+        mock_args.model = 'test_model'
+        mock_args.api_server = None
+        mock_args.api_server_key = None
+        mock_args.output_file = 'outputs/result.txt'
+        mock_arg_parser.return_value.parse_args.return_value = mock_args
+
+        mock_agent_instance = mock_browser_agent.return_value
+        mock_agent_instance.final_reasoning = 'Final reasoning text'
+
+        main.main()
+
+        mock_browser_agent.assert_called_once()
+        mock_agent_instance.agent_loop.assert_called_once()
+        mock_makedirs.assert_called_once_with('outputs', exist_ok=True)
+        mock_open_file.assert_called_once_with(
+            'outputs/result.txt', 'w', encoding='utf-8'
+        )
+        mock_open_file.return_value.write.assert_called_once_with(
+            'Final reasoning text'
+        )
 
 if __name__ == '__main__':
     unittest.main()
