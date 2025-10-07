@@ -26,7 +26,10 @@ def main() -> int:
     parser.add_argument(
         "--query",
         type=str,
-        required=True,
+        default="""Subject: QA Test
+Plan: Interactive Elements on webpages
+
+Objective: Verify that all interactive elements on the page function as expected and that all visual feedback is rendered correctly across major browsers.""",
         help="The query for the browser agent to execute.",
     )
 
@@ -40,7 +43,7 @@ def main() -> int:
     parser.add_argument(
         "--initial_url",
         type=str,
-        default="https://www.google.com",
+        default="https://temp-dupe-all-index.s3.us-west-1.amazonaws.com/interactive_webpages/v4/55_newtons-laws-of-motion-in-physics.html",
         help="The inital URL loaded for the computer.",
     )
     parser.add_argument(
